@@ -5,6 +5,9 @@ using Microsoft.Bot.Builder.Dialogs.Internals;
 using Autofac;
 using Microsoft.Bot.Connector;
 using System.Reflection;
+using System.Web.Mvc;
+using System.Web.Routing;
+using System.Web.Optimization;
 
 namespace SkillBotApplication1
 {
@@ -13,6 +16,9 @@ namespace SkillBotApplication1
         protected void Application_Start()
         {
             GlobalConfiguration.Configure(WebApiConfig.Register);
+            AreaRegistration.RegisterAllAreas();
+            RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
 
             Conversation.UpdateContainer(
             builder =>

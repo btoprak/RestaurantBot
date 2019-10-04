@@ -1,7 +1,9 @@
 ﻿using Microsoft.Bot.Builder.Dialogs;
 using Microsoft.Bot.Builder.FormFlow;
+using Microsoft.Bot.Connector;
 using SkillBotApplication1.EF.Tables;
 using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace SkillBotApplication1.Dialogs
@@ -20,8 +22,8 @@ namespace SkillBotApplication1.Dialogs
             async Task tamamlandi(IDialogContext context2, BookingQuery state)
             {
                 await context2.PostAsync("Randevunuz Alınmıştır teşekkür ederiz.");
-
-                var booking = new Booking()
+               
+                var booking = new Booking()   //database yazdır
                 {
                     Name = state.Name,
                     BookingDateTime = new DateTime(state.Date.Year, state.Date.Month, state.Date.Day, Convert.ToDateTime(state.Time).Hour, Convert.ToDateTime(state.Time).Minute, 0),
@@ -46,8 +48,30 @@ namespace SkillBotApplication1.Dialogs
 
                     throw;
                 }
+
+                var randevutime = state.Time.Hour + ":" + state.Time.Minute;
+                var reply = context2.MakeMessage();
+
+                ReceiptCard receiptCard = new ReceiptCard() //randevu bilgileri card
+                {
+                    Title = state.Name,
+                    Facts = new List<Fact> {
+                        new Fact("Telefon Num.",state.PhNum) ,
+                        new Fact("Rezervasyon gününüz", Convert.ToString(state.Date)),
+                        new Fact("Rezarvasyon saatiniz",Convert.ToString(randevutime)),
+                        new Fact("Kişi Sayısı", Convert.ToString(state.NumPeople)),
+
+                    }
+                };
+
+                Attachment plAttachment = receiptCard.ToAttachment();
+                reply.Attachments.Add(plAttachment);
+
+                await context2.PostAsync(reply);
+
+
             }
-            return new FormBuilder<BookingQuery>()
+            return new FormBuilder<BookingQuery>()   //senaryo sırası 
                  .Message("Hoşgeldiniz.")
 
                  .Field(nameof(BookingQuery.Date))

@@ -29,11 +29,11 @@ namespace SkillBotApplication1
             return response;
         }
 
-        internal static IDialog<Dialogs.MakeBooking> MakeBookingForm()
-        {
+        //internal static IDialog<Dialogs.MakeBooking> MakeBookingForm()
+        //{
 
-            return Chain.From(() => FormDialog.FromForm(Dialogs.MakeBooking.BuildForm));
-        }
+        //    return Chain.From(() => FormDialog.FromForm(Dialogs.MakeBooking.BuildForm));
+        //}
 
         private Activity HandleSystemMessage(Activity message)
         {

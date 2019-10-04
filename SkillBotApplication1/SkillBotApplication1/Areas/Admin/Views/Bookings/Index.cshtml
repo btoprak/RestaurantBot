@@ -1,0 +1,57 @@
+﻿@model IEnumerable<SkillBotApplication1.EF.Tables.Booking>
+
+@{
+    ViewBag.Title = "Randevular";
+}
+
+<h2>Randevular</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.NumPeople)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.PhNum)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Requests)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.BookingDateTime)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Name)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.NumPeople)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhNum)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Requests)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.BookingDateTime)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.ID }) |
+            @Html.ActionLink("Details", "Details", new { id=item.ID }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.ID })
+        </td>
+    </tr>
+}
+
+</table>

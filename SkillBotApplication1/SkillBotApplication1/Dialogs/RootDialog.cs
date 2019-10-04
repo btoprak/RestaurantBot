@@ -29,7 +29,7 @@ namespace SkillBotApplication1.Dialogs
             {
                 await context.PostAsync("Rica Ederim.");
             }
-            else if (Regex.IsMatch(activity.Text, @"\b(randevu)\b", RegexOptions.IgnoreCase))
+            else if (Regex.IsMatch(activity.Text, @"\b(randevu|rezervasyon)\b", RegexOptions.IgnoreCase))
             {
                 MakeBooking(context);
                 using (DataContext db = new DataContext())
@@ -76,7 +76,8 @@ namespace SkillBotApplication1.Dialogs
                         {
                             ContentUrl = "https://dev.virtualearth.net/REST/V1/Imagery/Map/Road?form=BTCTRL&mapArea=37.02944,35.31372,37.03343,35.31896&mapSize=500,280&pp=37.03135,35.31652;1;1&dpi=1&logo=always&key=Am0D5Lvq44f-wpvwGKLfcOlHCirwmAd3ynRH8Yuh0_hV063ZaKOTNlwFAr3b1fp6",
                             ContentType = "image/jpg",
-                            Name = "Map.jpg"
+                            Name = "Map.jpg",
+                           
                             
                         }
                     };
